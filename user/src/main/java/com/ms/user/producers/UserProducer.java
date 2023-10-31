@@ -2,7 +2,6 @@ package com.ms.user.producers;
 
 import com.ms.user.dtos.EmailDto;
 import com.ms.user.models.UserModel;
-import jakarta.validation.constraints.Email;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,7 @@ public class UserProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @Value(value = "${broker.queue.email.name")//exchange do tipo default: chave de routing key é o mesmo da fial queue
+    @Value(value = "${broker.queue.email.name}")
     private String routingKey;
 
 
@@ -25,7 +24,7 @@ public class UserProducer {
         emailDto.setUserId(userModel.getUserId());
         emailDto.setEmailTo(userModel.getEmail());
         emailDto.setSubject("Cadastro realizado com sucesso!");
-        emailDto.setText(userModel.getName() + "seja vendo(a)! \n Agradecemos seu cadastro!");
+        emailDto.setText(userModel.getName() + "seja vendo(a)! \nAgradecemos seu cadastro!");
 
 
 

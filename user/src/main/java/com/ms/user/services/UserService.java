@@ -3,7 +3,7 @@ package com.ms.user.services;
 import com.ms.user.models.UserModel;
 import com.ms.user.producers.UserProducer;
 import com.ms.user.repositories.UserRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
