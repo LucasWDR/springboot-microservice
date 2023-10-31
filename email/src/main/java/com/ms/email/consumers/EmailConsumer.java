@@ -12,14 +12,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailConsumer {
 
-
     final EmailService emailService;
 
     public EmailConsumer(EmailService emailService) {
         this.emailService = emailService;
     }
 
-    @RabbitListener(queues = "${broker.queue.email.name}")
+    @RabbitListener(queues = "${broker.queue.email.name}" )
    public void listenEmailQueue(@Payload EmailRecordDto emailRecordDto) {
        var emailModel = new EmailModel();
        BeanUtils.copyProperties(emailRecordDto, emailModel);

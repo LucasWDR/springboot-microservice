@@ -14,24 +14,23 @@ import java.time.LocalDateTime;
 
 @Service
 public class EmailService {
+
     final EmailRepository emailRepository;
     final JavaMailSender emailSender;
-
 
     public EmailService(EmailRepository emailRepository, JavaMailSender emailSender) {
         this.emailRepository = emailRepository;
         this.emailSender = emailSender;
     }
 
-    @Value(value = "${broker.mail.username}")
+    @Value(value = "${spring.mail.username}")
     private String emailFrom;
 
     @Transactional
     public EmailModel sendEmail(EmailModel emailModel) {
         try{
-           emailModel.setSendDateEmail(LocalDateTime.now());
-           emailModel.setEmailFrom(emailFrom);
-
+            emailModel.setSendDateEmail(LocalDateTime.now());
+            emailModel.setEmailFrom(emailFrom);
 
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(emailModel.getEmailTo());
@@ -43,7 +42,8 @@ public class EmailService {
         } catch (MailException e){
             emailModel.setStatusEmail(StatusEmail.Error);
         } finally {
-            return  emailRepository.save(emailModel);
+            return emailRepository.save(emailModel);
         }
     }
+
 }
